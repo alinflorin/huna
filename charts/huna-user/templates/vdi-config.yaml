@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: vdi-{{ required "username is required" .Values.user.username }}
+  namespace: {{ required "username is required" .Values.user.username }}
+  labels:
+    huna2.com/type: "configmap"
+    huna2.com/component: "vdi"
+    huna2.com/personal: "true"
+    huna2.com/username: "{{ required "username is required" .Values.user.username }}"
+data:
+  'kasmvnc.yaml': |
+    network:
+      ssl:
+        require_ssl: false
+        pem_certificate: ${HOME}/.vnc/self.pem
+        pem_key: ${HOME}/.vnc/self.pem
+      udp:
+        public_ip: 127.0.0.1
+  

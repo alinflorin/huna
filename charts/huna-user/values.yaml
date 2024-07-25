@@ -1,6 +1,16 @@
 user:
-  name: ''
   username: ''
   email: ''
-  password: ''
 
+clusterAccess:
+  enabled: true
+
+vdi:
+  enabled: true
+  resources: {}
+  persistence:
+    size: 10Gi
+  image:
+    tag: '1.15.0-rolling'
+    repository: 'kasmweb/core-alpine-319'
+    pullPolicy: IfNotPresent

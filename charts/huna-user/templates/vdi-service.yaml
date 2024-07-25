@@ -1,0 +1,21 @@
+{{- if .Values.vdi.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: vdi-{{ required "username is required" .Values.user.username }}
+  namespace: {{ required "username is required" .Values.user.username }}
+  labels:
+    huna2.com/type: "service"
+    huna2.com/component: "vdi"
+    huna2.com/personal: "true"
+    huna2.com/username: "{{ required "username is required" .Values.user.username }}"
+spec:
+  selector:
+    app: vdi-{{ required "username is required" .Values.user.username }}
+  type: ClusterIP
+  ports:
+  - name: vnc
+    protocol: TCP
+    port: 6901
+    targetPort: 6901
+{{- end }}

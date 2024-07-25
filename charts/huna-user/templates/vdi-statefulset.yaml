@@ -1,0 +1,60 @@
+{{- if .Values.vdi.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vdi-{{ required "username is required" .Values.user.username }}
+  namespace: {{ required "username is required" .Values.user.username }}
+  labels:
+    huna2.com/type: "statefulset"
+    huna2.com/component: "vdi"
+    huna2.com/personal: "true"
+    huna2.com/username: "{{ required "username is required" .Values.user.username }}"
+spec:
+  selector:
+    matchLabels:
+      app: vdi-{{ required "username is required" .Values.user.username }} # has to match .spec.template.metadata.labels
+  serviceName: vdi-{{ required "username is required" .Values.user.username }}
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: vdi-{{ required "username is required" .Values.user.username }} # has to match .spec.selector.matchLabels
+        huna2.com/type: "pod"
+        huna2.com/component: "vdi"
+        huna2.com/personal: "true"
+        huna2.com/username: "{{ required "username is required" .Values.user.username }}"
+    spec:
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: vdi-config
+          configMap:
+            name: vdi-{{ required "username is required" .Values.user.username }}
+      containers:
+      - name: vdi
+        imagePullPolicy: {{required "pull policy is required" .Values.vdi.image.pullPolicy }}
+        image: {{ required "image is required" .Values.vdi.image.repository }}:{{ required "tag is required" .Values.vdi.image.tag }}
+        resources:
+          {{- toYaml .Values.vdi.resources | indent 12 }}
+        env:
+          - name: 'VNC_PW'
+            value: 'kasmweb'
+          - name: 'VNCOPTIONS'
+            value: '-sslOnly=off'
+        ports:
+        - containerPort: 6901
+          name: vnc
+        volumeMounts:
+        - name: userdata
+          mountPath: /home/{{ required "username is required" .Values.user.username }}
+        - name: vdi-config
+          mountPath: /etc/kasmvnc/kasmvnc.yaml
+          subPath: kasmvnc.yaml
+  volumeClaimTemplates:
+  - metadata:
+      name: userdata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.vdi.persistence.size }}
+{{- end }}

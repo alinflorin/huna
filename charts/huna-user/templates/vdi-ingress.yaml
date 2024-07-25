@@ -1,0 +1,35 @@
+{{- if .Values.vdi.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vdi-{{ required "username is required" .Values.user.username }}
+  namespace: {{ required "username is required" .Values.user.username }}
+  annotations:
+    cert-manager.io/cluster-issuer: 'letsencrypt'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Authorization $http_authorization;
+      proxy_pass_header Authorization;
+  labels:
+    huna2.com/type: "ingress"
+    huna2.com/component: "vdi"
+    huna2.com/personal: "true"
+    huna2.com/username: "{{ required "username is required" .Values.user.username }}"
+spec:
+  ingressClassName: 'nginx'
+  tls:
+  - hosts:
+      - {{ required "username is required" .Values.user.username }}.vdi.huna2.com
+    secretName: {{ required "username is required" .Values.user.username }}-vdi-ingress-tls
+  rules:
+  - host: {{ required "username is required" .Values.user.username }}.vdi.huna2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vdi-{{ required "username is required" .Values.user.username }}
+            port:
+              number: 6901
+{{- end }}

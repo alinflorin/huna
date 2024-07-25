@@ -5,3 +5,4 @@ metadata:
   labels:
     huna2.com/username: "{{ required "username is required" .Values.user.username }}"
     huna2.com/personal: "true"
+    huna2.com/type: "namespace"
