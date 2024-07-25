@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: 'letsencrypt'
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Authorization $http_authorization;
+      proxy_set_header Authorization "Basic a2FzbV91c2VyOmthc213ZWI=";
       proxy_pass_header Authorization;
   labels:
     huna2.com/type: "ingress"

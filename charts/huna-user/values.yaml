@@ -8,6 +8,7 @@ clusterAccess:
 vdi:
   enabled: true
   resources: {}
+  nodeSelector: {}
   persistence:
     size: 10Gi
   image:

@@ -16,6 +16,8 @@ metadata:
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";
       proxy_set_header Host $host;
+      proxy_set_header Authorization "Basic a2FzbV91c2VyOmthc213ZWI=";
+      proxy_pass_header Authorization;
   labels:
     huna2.com/type: "ingress"
     huna2.com/component: "vdi"
