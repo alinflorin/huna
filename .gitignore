@@ -76,7 +76,7 @@ ehthumbs_vista.db
 
 # Folder config file
 [Dd]esktop.ini
-
+charts/**/values-test.yaml
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
