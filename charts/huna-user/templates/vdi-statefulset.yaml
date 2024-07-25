@@ -41,7 +41,7 @@ spec:
           - name: 'VNC_PW'
             value: 'kasmweb'
           - name: 'VNCOPTIONS'
-            value: '-sslOnly=off'
+            value: '-sslOnly=off -disableBasicAuth'
         ports:
         - containerPort: 6901
           name: vnc

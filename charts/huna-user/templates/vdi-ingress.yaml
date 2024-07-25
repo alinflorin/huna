@@ -7,9 +7,13 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: 'letsencrypt'
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50M"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Authorization "Basic a2FzbV91c2VyOmthc213ZWI=";
-      proxy_pass_header Authorization;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
   labels:
     huna2.com/type: "ingress"
     huna2.com/component: "vdi"

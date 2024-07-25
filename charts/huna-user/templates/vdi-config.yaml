@@ -16,5 +16,5 @@ data:
         pem_certificate: ${HOME}/.vnc/self.pem
         pem_key: ${HOME}/.vnc/self.pem
       udp:
-        public_ip: 127.0.0.1
+        public_ip: 0.0.0.0
   
