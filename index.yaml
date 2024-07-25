@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  huna-user:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-07-25T10:16:40.470334475Z"
+    description: A Helm chart for Kubernetes
+    digest: a493c7036071af2ceaae96d532388a93e861d8fd5e1642d7ffc325fc2450ca61
+    name: huna-user
+    type: application
+    urls:
+    - https://github.com/alinflorin/huna/releases/download/huna-user-1.0.0/huna-user-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-07-25T10:16:40.470344744Z"
